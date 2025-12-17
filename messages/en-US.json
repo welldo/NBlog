@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title": "Rene's Official Website",
+    "description": "My experience about web, AI, iOS, game development, 3D art, start-up, and my life journal."
+  },
   "nav": {
     "homePage": "Home",
     "search": "Search",

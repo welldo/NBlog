@@ -36,7 +36,7 @@ function PostList({
   return (
     <>
       {classfiedPosts.slice(0, MAX_POST_COUNT).map((post) => (
-        <Link key={post.id} href={"/p/" + post.id}>
+        <Link key={post.id} href={"/p/" + post.id} style={{ textDecoration: "none" }}>
           <ListItem
             style={{
               cursor: "pointer",
