@@ -47,7 +47,7 @@ const AllPost: React.FC<AllPostsProps> = ({
         return <span key={l.routeName}>{l.localeString}</span>;
       }
       return (
-        <Link href="/archive" locale={l.routeName} key={l.routeName}>
+        <Link href={`/${l.routeName}/archive`} key={l.routeName}>
           {l.localeString}
         </Link>
       );
