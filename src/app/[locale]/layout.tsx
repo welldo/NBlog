@@ -36,6 +36,14 @@ export async function generateMetadata({
       description: t("description"),
       locale: validLocale,
       type: "website",
+      images: [
+        {
+          url: "/og.png",
+          width: 2514,
+          height: 1606,
+          alt: "Rene Wang",
+        },
+      ],
     },
   };
 }
