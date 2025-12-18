@@ -55,7 +55,6 @@ export const Dialog: React.FC<DialogProps> = ({ open, onClose, children }) => {
         style={{
           backgroundColor: 'var(--eink-paper)',
           border: '1px solid var(--eink-border)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
         }}
         role="dialog"
         aria-modal="true"

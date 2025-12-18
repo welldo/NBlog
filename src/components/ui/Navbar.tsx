@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { BatteryIcon, WifiIcon, SearchIcon, MenuIcon, CloseIcon } from "./Icons";
+import {
+  BatteryIcon,
+  WifiIcon,
+  SearchIcon,
+  MenuIcon,
+  CloseIcon,
+} from "./Icons";
 import { useDeviceSettings } from "@/contexts/deviceSettings";
 
 /**
@@ -14,9 +20,9 @@ import { useDeviceSettings } from "@/contexts/deviceSettings";
 // ============================================
 
 // Airplane mode icon
-const AirplaneModeIcon: React.FC<{ size?: number; className?: string }> = ({ 
-  size = 20, 
-  className = "" 
+const AirplaneModeIcon: React.FC<{ size?: number; className?: string }> = ({
+  size = 20,
+  className = "",
 }) => (
   <svg
     className={className}
@@ -25,14 +31,14 @@ const AirplaneModeIcon: React.FC<{ size?: number; className?: string }> = ({
     viewBox="0 0 24 24"
     fill="currentColor"
   >
-    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
   </svg>
 );
 
 // Bluetooth icon
-const BluetoothIcon: React.FC<{ size?: number; className?: string }> = ({ 
-  size = 20, 
-  className = "" 
+const BluetoothIcon: React.FC<{ size?: number; className?: string }> = ({
+  size = 20,
+  className = "",
 }) => (
   <svg
     className={className}
@@ -41,7 +47,7 @@ const BluetoothIcon: React.FC<{ size?: number; className?: string }> = ({
     viewBox="0 0 24 24"
     fill="currentColor"
   >
-    <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"/>
+    <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z" />
   </svg>
 );
 
@@ -70,20 +76,23 @@ export const StatuBar: React.FC<StatusBarProps> = ({
   }, []);
 
   return (
-    <div 
+    <div
       className="flex items-center justify-between px-3 py-2 md:py-1.5 border-b"
-      style={{ 
-        borderColor: 'var(--eink-divider)', 
-        backgroundColor: 'var(--eink-paper)' 
+      style={{
+        borderColor: "var(--eink-divider)",
+        backgroundColor: "var(--eink-paper)",
       }}
     >
-      <span 
+      <span
         className="text-sm md:text-xs font-sans truncate max-w-[140px] md:max-w-[120px]"
-        style={{ color: 'var(--eink-ink-secondary)' }}
+        style={{ color: "var(--eink-ink-secondary)" }}
       >
         {deviceName}
       </span>
-      <div className="flex items-center gap-3 md:gap-2" style={{ color: 'var(--eink-ink-secondary)' }}>
+      <div
+        className="flex items-center gap-3 md:gap-2"
+        style={{ color: "var(--eink-ink-secondary)" }}
+      >
         {/* Airplane Mode indicator */}
         {wireless.airplaneMode && (
           <AirplaneModeIcon size={18} className="md:hidden" />
@@ -95,8 +104,16 @@ export const StatuBar: React.FC<StatusBarProps> = ({
         {/* WiFi indicator */}
         {wireless.wifiEnabled && !wireless.airplaneMode && (
           <div className="flex items-center gap-1.5 md:gap-1">
-            <WifiIcon size={18} className="md:hidden" strength={wireless.wifiSignal} />
-            <WifiIcon size={14} className="hidden md:block" strength={wireless.wifiSignal} />
+            <WifiIcon
+              size={18}
+              className="md:hidden"
+              strength={wireless.wifiSignal}
+            />
+            <WifiIcon
+              size={14}
+              className="hidden md:block"
+              strength={wireless.wifiSignal}
+            />
           </div>
         )}
 
@@ -116,7 +133,9 @@ export const StatuBar: React.FC<StatusBarProps> = ({
         </div>
 
         {/* Time */}
-        <span className="text-sm md:text-xs font-sans tabular-nums">{time}</span>
+        <span className="text-sm md:text-xs font-sans tabular-nums">
+          {time}
+        </span>
       </div>
     </div>
   );
@@ -131,7 +150,10 @@ interface ActionBarProps {
   className?: string;
 }
 
-export const ActionBar: React.FC<ActionBarProps> = ({ children, className = "" }) => {
+export const ActionBar: React.FC<ActionBarProps> = ({
+  children,
+  className = "",
+}) => {
   return (
     <div className={`flex items-center px-2 py-1 gap-1 ${className}`}>
       {children}
@@ -144,17 +166,19 @@ interface ActionGroupProps {
   className?: string;
 }
 
-export const ActionGroup: React.FC<ActionGroupProps> = ({ children, className = "" }) => {
+export const ActionGroup: React.FC<ActionGroupProps> = ({
+  children,
+  className = "",
+}) => {
   return (
-    <div className={`flex items-center gap-0.5 ${className}`}>
-      {children}
-    </div>
+    <div className={`flex items-center gap-0.5 ${className}`}>{children}</div>
   );
 };
 
 export const ActionBarSpace: React.FC = () => <div className="flex-1" />;
 
-interface ActionItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ActionItemProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   changeFill?: boolean;
 }
@@ -169,13 +193,13 @@ export const ActionItem: React.FC<ActionItemProps> = ({
 
   // Kindle-style invert on tap
   const normalStyles = {
-    color: 'var(--eink-ink-secondary)',
-    backgroundColor: 'transparent',
+    color: "var(--eink-ink-secondary)",
+    backgroundColor: "transparent",
   };
 
   const pressedStyles = {
-    color: 'var(--eink-paper)',
-    backgroundColor: 'var(--eink-ink)',
+    color: "var(--eink-paper)",
+    backgroundColor: "var(--eink-ink)",
   };
 
   const currentStyles = isPressed ? pressedStyles : normalStyles;
@@ -230,7 +254,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       {isExpanded ? (
         <form onSubmit={handleSubmit} className="flex items-center">
           <div className="relative">
-            <SearchIcon size={16} className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--eink-ink-muted)]" />
+            <SearchIcon
+              size={16}
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--eink-ink-muted)]"
+            />
             <input
               type="text"
               value={query}
@@ -304,13 +331,15 @@ export const ActionBarMenu: React.FC<ActionBarMenuProps> = ({ items }) => {
   }, []);
 
   // Kindle-style invert on tap
-  const buttonStyles = isPressed ? {
-    color: 'var(--eink-paper)',
-    backgroundColor: 'var(--eink-ink)',
-  } : {
-    color: 'var(--eink-ink-secondary)',
-    backgroundColor: 'transparent',
-  };
+  const buttonStyles = isPressed
+    ? {
+        color: "var(--eink-paper)",
+        backgroundColor: "var(--eink-ink)",
+      }
+    : {
+        color: "var(--eink-ink-secondary)",
+        backgroundColor: "transparent",
+      };
 
   return (
     <div ref={menuRef} className="relative">
@@ -339,9 +368,8 @@ export const ActionBarMenu: React.FC<ActionBarMenuProps> = ({ items }) => {
             py-1 z-50
           "
           style={{
-            backgroundColor: 'var(--eink-paper)',
-            border: '1px solid var(--eink-border)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            backgroundColor: "var(--eink-paper)",
+            border: "1px solid var(--eink-border)",
           }}
         >
           {items.map((item, index) => {
@@ -411,35 +439,35 @@ export const Navbar: React.FC<NavbarProps> = ({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const navStyle: React.CSSProperties = {
-    backgroundColor: 'var(--eink-paper)',
-    borderColor: 'var(--eink-divider)',
-    ...(fixed && isMobile ? {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 40,
-    } : fixed ? {
-      position: 'sticky',
-      top: 0,
-      zIndex: 40,
-    } : {})
+    backgroundColor: "var(--eink-paper)",
+    borderColor: "var(--eink-divider)",
+    ...(fixed && isMobile
+      ? {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 40,
+        }
+      : fixed
+      ? {
+          position: "sticky",
+          top: 0,
+          zIndex: 40,
+        }
+      : {}),
   };
 
   return (
-    <nav
-      className={`border-b ${className}`}
-      style={navStyle}
-    >
+    <nav className={`border-b ${className}`} style={navStyle}>
       {children}
     </nav>
   );
 };
-

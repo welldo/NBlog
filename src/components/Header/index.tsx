@@ -31,18 +31,11 @@ interface HeaderProps {
   menuItems?: any[];
 }
 
-const Header: React.FC<HeaderProps> = ({
-  siteConfig,
-  menuItems = [],
-  currentPage,
-  lang,
-}) => {
+const Header: React.FC<HeaderProps> = ({ menuItems = [] }) => {
   const router = useRouter();
   const t = useTranslations();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
 
   const handleClick = () => {
     setOpen(true);
@@ -53,37 +46,6 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   var pageMenuItems: any[] = [];
-
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      screen.width > 768 &&
-      window.location.pathname.match(/\/p\/.+/)
-    ) {
-      const handleScroll = () => {
-        const container = document.querySelector(".content");
-        if (!container) return;
-
-        const currentScrollPos = container.scrollTop;
-
-        const visible =
-          prevScrollPos > currentScrollPos || currentScrollPos < 10;
-        setVisible(visible);
-        setPrevScrollPos(currentScrollPos);
-      };
-
-      const container = document.querySelector(".content");
-      if (container) {
-        container.addEventListener("scroll", handleScroll);
-
-        return () => {
-          container.removeEventListener("scroll", handleScroll);
-        };
-      }
-    }
-  }, [prevScrollPos, currentPage]);
-
-  if (!visible) return <div style={{ height: "84px" }}></div>;
 
   return (
     <Navbar autoClose fixed>
