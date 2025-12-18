@@ -209,18 +209,20 @@ a:hover {
 }
 
 /* Code blocks with monospace font */
-code, pre {
+/* Only style inline code, not syntax-highlighted blocks */
+:not(pre) > code {
   font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Courier New', Courier, monospace;
-  background-color: var(--eink-paper-warm);
-  border-radius: 4px;
 }
 
-code {
-  padding: 0.125em 0.25em;
+/* Syntax highlighted code blocks should not have these styles */
+pre code {
+  font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Courier New', Courier, monospace;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 pre {
-  padding: 1em;
   overflow-x: auto;
 }
 
@@ -263,6 +265,19 @@ article {
 ::-moz-selection {
   background-color: var(--eink-ink);
   color: var(--eink-paper);
+}
+
+/* Special selection for code blocks - use a semi-transparent highlight */
+pre ::selection,
+pre code ::selection {
+  background-color: rgba(100, 150, 255, 0.3);
+  color: inherit;
+}
+
+pre ::-moz-selection,
+pre code ::-moz-selection {
+  background-color: rgba(100, 150, 255, 0.3);
+  color: inherit;
 }
 
 /* Focus states - Kindle style with solid outlines */
