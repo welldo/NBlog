@@ -49,8 +49,8 @@ const LayoutInner = (props: {
         </Navbar>
         {/* Spacer for fixed navbar on mobile */}
         <div className="h-[88px] md:hidden shrink-0" />
-        {/* Main content - takes remaining height, relative for absolute children */}
-        <main className="flex-1 overflow-hidden relative">{children}</main>
+        {/* Main content - takes remaining height, scrollable for reader, relative for absolute children */}
+        <main className="flex-1 overflow-y-auto relative">{children}</main>
       </div>
     );
   }
