@@ -34,27 +34,30 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
         }}
       >
         {/* Kindle Oasis device body */}
-        <div 
-          className="relative flex"
+        <div
+          className="relative flex rounded-[20px] lg:rounded-l-[20px] lg:rounded-r-[24px]"
           style={{
             maxHeight: 'calc(100vh - 2rem)',
+            // Optimized shadow using box-shadow instead of filter for better performance
             // Realistic shadow: light from top-left, shadow cast to bottom-right
-            // Device has ~8mm thickness
-            filter: `
-              drop-shadow(1px 1px 1px rgba(0,0,0,0.08))
-              drop-shadow(2px 3px 2px rgba(0,0,0,0.08))
-              drop-shadow(4px 6px 4px rgba(0,0,0,0.07))
-              drop-shadow(8px 12px 8px rgba(0,0,0,0.06))
-              drop-shadow(12px 20px 16px rgba(0,0,0,0.05))
-              drop-shadow(16px 28px 24px rgba(0,0,0,0.04))`,
+            boxShadow: `
+              1px 1px 1px rgba(0,0,0,0.08),
+              2px 3px 2px rgba(0,0,0,0.08),
+              4px 6px 4px rgba(0,0,0,0.07),
+              8px 12px 8px rgba(0,0,0,0.06),
+              12px 20px 16px rgba(0,0,0,0.05),
+              16px 28px 24px rgba(0,0,0,0.04)`,
+            // Force GPU layer for the entire device
+            transform: 'translate3d(0, 0, 0)',
+            willChange: 'transform',
           }}
         >
           {/* Outer raised edge frame - creates the beveled edge effect */}
-          <div 
+          <div
             className="absolute inset-0 rounded-[20px] lg:rounded-l-[20px] lg:rounded-r-[24px] pointer-events-none"
             style={{
-              background: `linear-gradient(145deg, 
-                rgba(255,255,255,0.12) 0%, 
+              background: `linear-gradient(145deg,
+                rgba(255,255,255,0.12) 0%,
                 rgba(255,255,255,0.05) 30%,
                 transparent 50%,
                 rgba(0,0,0,0.1) 80%,
@@ -62,15 +65,18 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
               boxShadow: `
                 inset 0 1px 2px rgba(255,255,255,0.1),
                 inset 0 -1px 2px rgba(0,0,0,0.2)`,
+              // Promote to GPU layer
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform',
             }}
           />
 
           {/* Main body with screen */}
-          <div 
+          <div
             className="relative flex"
             style={{
-              background: `linear-gradient(180deg, 
-                var(--bezel-body-light) 0%, 
+              background: `linear-gradient(180deg,
+                var(--bezel-body-light) 0%,
                 var(--bezel-body) 15%,
                 var(--bezel-body) 85%,
                 var(--bezel-body-dark) 100%)`,
@@ -81,6 +87,9 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
                 inset 0 2px 4px rgba(255,255,255,0.08),
                 inset 0 -2px 4px rgba(0,0,0,0.12),
                 inset -1px 0 2px rgba(0,0,0,0.05)`,
+              // Promote to GPU layer
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform',
             }}
           >
             {/* Add full radius when grip is hidden on smaller screens */}
@@ -139,7 +148,7 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
               className="relative m-6 lg:m-7 lg:mr-6"
             >
               {/* Screen inset - recessed effect */}
-              <div 
+              <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   boxShadow: `
@@ -148,12 +157,15 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
                     inset 2px 0 6px rgba(0,0,0,0.15),
                     inset -2px 0 6px rgba(0,0,0,0.15),
                     inset 0 -2px 6px rgba(0,0,0,0.2)`,
+                  // Promote to GPU layer
+                  transform: 'translate3d(0, 0, 0)',
+                  willChange: 'transform',
                 }}
               />
 
               {/* Screen container - NO border radius */}
               {/* Real Kindle dimensions: 159mm × 141mm = aspect ratio ~1.128:1 */}
-              <div 
+              <div
                 className="relative overflow-hidden"
                 style={{
                   height: 'min(720px, calc(100vh - 3rem))',
@@ -161,6 +173,10 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
                   minWidth: '320px',
                   // Create isolated stacking context for the screen
                   isolation: 'isolate',
+                  // Force GPU layer for entire screen container
+                  transform: 'translate3d(0, 0, 0)',
+                  // Containment to prevent reflow affecting parent elements
+                  contain: 'layout style',
                 }}
               >
                 {/* Dialog portal target */}
@@ -171,18 +187,22 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
 
                 {/* Content area - scrollable */}
                 <DialogPortalContext.Provider value={{ portalRef: desktopPortalRef }}>
-                  <div 
+                  <div
                     className="absolute inset-0 overflow-y-auto overflow-x-hidden scrollbar-thin"
-                    style={{ 
+                    style={{
                       backgroundColor: 'var(--eink-paper)',
                       color: 'var(--eink-ink)',
                       // GPU acceleration for smooth scrolling
                       transform: 'translate3d(0, 0, 0)',
                       backfaceVisibility: 'hidden',
+                      willChange: 'scroll-position',
                       // Prevent scroll chaining to parent
                       overscrollBehavior: 'contain',
                       // Use touch momentum scrolling on iOS
                       WebkitOverflowScrolling: 'touch',
+                      // CSS containment - isolate this scroll container from the rest of the page
+                      // This prevents layout/paint recalculation of parent elements during scroll
+                      contain: 'layout paint style',
                     }}
                   >
                     {children}
@@ -191,13 +211,15 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
 
                 {/* Static overlays - BELOW scroll content in DOM but visually above via z-index */}
                 {/* These won't repaint during scroll because they're in a separate layer */}
-                <div 
+                <div
                   className="absolute inset-0 pointer-events-none z-10"
                   style={{
                     // Subtle vignette effect
                     boxShadow: 'inset 0 0 30px rgba(0,0,0,0.02)',
                     // Force GPU layer so it doesn't affect scroll performance
                     transform: 'translate3d(0, 0, 0)',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden',
                   }}
                 />
 
@@ -206,13 +228,13 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
           </div>
 
           {/* Right ergonomic grip - Oasis signature asymmetric design */}
-          <div 
+          <div
             className="hidden lg:flex relative shrink-0"
             style={{
               width: '80px',
-              background: `linear-gradient(180deg, 
+              background: `linear-gradient(180deg,
                 var(--bezel-body-light) 0%,
-                var(--bezel-grip) 15%, 
+                var(--bezel-grip) 15%,
                 var(--bezel-grip) 85%,
                 var(--bezel-body-dark) 100%)`,
               borderRadius: '0 22px 22px 0',
@@ -221,6 +243,9 @@ const KindleBezel: React.FC<KindleBezelProps> = ({ children, dark = false }) => 
                 inset -2px 0 4px rgba(255,255,255,0.08),
                 inset 0 2px 4px rgba(255,255,255,0.06),
                 inset 0 -2px 4px rgba(0,0,0,0.15)`,
+              // Promote to GPU layer
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform',
             }}
           >
             {/* Grip top highlight */}
