@@ -1,9 +1,12 @@
 {
   "metadata": {
     "title": "Rene Wang",
-    "keywords": "Rene Wang, 江村暮, RiverTwilight, 过气码农, 江村暮, RT, YGeeker",
-    "description": "分享我的 Web, iOS, 游戏开发日志、3D 建模、创业经历以及生活随感。",
-    "author": "Rene Wang"
+    "keywords": "Rene Wang, 江村暮, RiverTwilight, rea1DonandTrump, YGeeker, RT, Web Developer, iOS Developer, Game Developer, 3D Artist, Startup Founder, Life Journal",
+    "description": "分享我的 Design Engineering 和人生感悟。",
+    "author": {
+      "name": "Rene Wang",
+      "email": "contact@rene.wang"
+    }
   },
   "nav": {
     "deviceName": "Rene Wang 的 Kindle",

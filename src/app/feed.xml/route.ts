@@ -11,12 +11,18 @@ function escapeXml(text: string): string {
     .replace(/'/g, "&apos;");
 }
 
-function generateAtomXml(locale: string): string {
+async function getDictionary(locale: string) {
+  try {
+    return (await import(`../../dictionaries/${locale}.json`)).default;
+  } catch {
+    return (await import(`../../dictionaries/zh.json`)).default;
+  }
+}
+
+async function generateAtomXml(locale: string): Promise<string> {
   const baseUrl = "https://rene.wang";
-  const title = "Rene Wang";
-  const description =
-    "My experience about web, AI, iOS, game development, 3D art, start-up, and my life journal.";
-  const author = "Rene Wang";
+  const dictionary = await getDictionary(locale);
+  const { title, description, author } = dictionary.metadata;
   const now = new Date().toISOString();
 
   const posts = getAllPosts({
@@ -47,8 +53,8 @@ function generateAtomXml(locale: string): string {
     <summary>${summary}</summary>
     ${category ? `<category term="${escapeXml(category)}"/>` : ""}
     <author>
-      <name>${escapeXml(author)}</name>
-      <email>${escapeXml(author)}</email>
+      <name>${escapeXml(author.name)}</name>
+      <email>${escapeXml(author.email)}</email>
     </author>
   </entry>`;
     })
@@ -63,12 +69,12 @@ function generateAtomXml(locale: string): string {
   <id>${baseUrl}/</id>
   <updated>${now}</updated>
   <author>
-    <name>${escapeXml(author)}</name>
-    <email>${escapeXml(author)}</email>
+    <name>${escapeXml(author.name)}</name>
+    <email>${escapeXml(author.email)}</email>
   </author>
   <generator>Next.js</generator>
   <rights>All rights reserved ${new Date().getFullYear()}, ${escapeXml(
-    author
+    author.name
   )}</rights>
   ${entries}
 </feed>`;
@@ -78,7 +84,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") || "zh";
 
-  const atomXml = generateAtomXml(locale);
+  const atomXml = await generateAtomXml(locale);
 
   return new NextResponse(atomXml, {
     status: 200,
