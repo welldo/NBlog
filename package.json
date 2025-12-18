@@ -22,6 +22,7 @@
 		"gray-matter": "^4.0.3",
 		"katex": "^0.16.27",
 		"kindle-fonts": "latest",
+		"lucide-react": "^0.562.0",
 		"next": "^16.0.10",
 		"next-intl": "^4.6.1",
 		"next-mdx-remote": "^5.0.0",

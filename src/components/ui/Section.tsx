@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ChevronRightIcon } from "./Icons";
+import { ArrowRight, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
 /**
@@ -13,10 +13,10 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
 }
 
-export const Section: React.FC<SectionProps> = ({ 
-  className = "", 
-  children, 
-  ...props 
+export const Section: React.FC<SectionProps> = ({
+  className = "",
+  children,
+  ...props
 }) => {
   return (
     <section
@@ -34,29 +34,40 @@ export const Section: React.FC<SectionProps> = ({
 interface SectionTitleProps {
   label: string;
   href?: string;
+  showArrow?: boolean;
   className?: string;
 }
 
 export const SectionTitle: React.FC<SectionTitleProps> = ({
   label,
   href,
+  showArrow = false,
   className = "",
 }) => {
   const content = (
-    <div className="flex items-center gap-1">
-      <span 
+    <div className="flex items-center gap-1.5">
+      <span
         className="uppercase tracking-wider text-sm font-sans font-semibold"
-        style={{ color: 'var(--eink-ink)' }}
+        style={{ color: "var(--eink-ink)" }}
       >
         {label}
       </span>
-      {href && <ChevronRightIcon size={16} style={{ color: 'var(--eink-ink-muted)' }} />}
+      {(href || showArrow) && (
+        <ChevronRightIcon
+          size={16}
+          strokeWidth={2.5}
+          style={{ color: "var(--eink-ink)" }}
+        />
+      )}
     </div>
   );
 
   if (href) {
     return (
-      <Link href={href} className={`block mb-3 hover:opacity-80 transition-opacity ${className}`}>
+      <Link
+        href={href}
+        className={`block mb-3 hover:opacity-80 transition-opacity ${className}`}
+      >
         {content}
       </Link>
     );
@@ -69,10 +80,10 @@ interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export const Grid: React.FC<GridProps> = ({ 
-  className = "", 
-  children, 
-  ...props 
+export const Grid: React.FC<GridProps> = ({
+  className = "",
+  children,
+  ...props
 }) => {
   // Kindle-style horizontal scroll grid that respects item natural sizes
   return (
@@ -105,9 +116,11 @@ export const GridItem: React.FC<GridItemProps> = ({
   const [isPressed, setIsPressed] = React.useState(false);
 
   // Kindle-style invert on tap
-  const pressedStyles = isPressed ? {
-    filter: 'invert(1)',
-  } : {};
+  const pressedStyles = isPressed
+    ? {
+        filter: "invert(1)",
+      }
+    : {};
 
   const imageContent = (
     <div
@@ -120,7 +133,7 @@ export const GridItem: React.FC<GridItemProps> = ({
         ${className}
       `}
       style={{
-        border: '1px solid var(--eink-divider)',
+        border: "1px solid var(--eink-divider)",
         ...pressedStyles,
       }}
       onMouseDown={() => setIsPressed(true)}
@@ -129,11 +142,15 @@ export const GridItem: React.FC<GridItemProps> = ({
       onTouchStart={() => setIsPressed(true)}
       onTouchEnd={() => setIsPressed(false)}
     >
+      {/* Kindle-style: respect natural image aspect ratio with max height constraint */}
       <img
         src={src}
         alt={alt}
-        className="h-32 w-auto object-contain"
-        style={{ maxWidth: '120px' }}
+        className="block w-auto h-auto max-h-40"
+        style={{
+          maxWidth: "160px",
+          objectFit: "contain",
+        }}
       />
     </div>
   );
@@ -148,4 +165,3 @@ export const GridItem: React.FC<GridItemProps> = ({
 
   return imageContent;
 };
-

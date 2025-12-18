@@ -117,7 +117,7 @@ const Home = (props: HomeProps) => {
   return (
     <>
       <Section>
-        <SectionTitle label={t("homePage.features")} />
+        <SectionTitle label={t("homePage.features")} showArrow />
 
         <Grid>
           <GridItem
