@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import getAllPosts from "@/utils/getAllPosts";
-import siteConfig from "../../site.config";
 
 function escapeXml(text: string): string {
 	if (!text) return "";
@@ -13,10 +12,10 @@ function escapeXml(text: string): string {
 }
 
 function generateRssXml(locale: string): string {
-	const baseUrl = siteConfig.root;
-	const title = siteConfig.title[locale as keyof typeof siteConfig.title] || siteConfig.title["en"];
-	const description = siteConfig.description[locale as keyof typeof siteConfig.description] || siteConfig.description["en"];
-	const author = siteConfig.author;
+	const baseUrl = "https://rene.wang";
+	const title = "Rene Wang";
+	const description = "My experience about web, AI, iOS, game development, 3D art, start-up, and my life journal.";
+	const author = "Rene Wang";
 
 	const posts = getAllPosts({
 		locale,
@@ -43,7 +42,7 @@ function generateRssXml(locale: string): string {
       <pubDate>${pubDate}</pubDate>
       <description>${summary}</description>
       ${category ? `<category>${category}</category>` : ""}
-      <author>${escapeXml(author.email)} (${escapeXml(author.name)})</author>
+      <author>${escapeXml(author)} (${escapeXml(author)})</author>
     </item>`;
 		})
 		.join("");
