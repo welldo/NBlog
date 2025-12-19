@@ -37,8 +37,7 @@
 		"react-syntax-highlighter": "latest",
 		"rehype-katex": "latest",
 		"remark-gfm": "^4.0.1",
-		"remark-math": "latest",
-		"uuid": "^8.3.2"
+		"remark-math": "latest"
 	},
 	"devDependencies": {
 		"@svgr/webpack": "5.5.0",

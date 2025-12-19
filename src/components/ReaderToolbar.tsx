@@ -3,8 +3,13 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ActionBar } from "@/components/ui";
-import { ArrowBackSharpIcon, EllipsisVerticalIcon } from "@/components/ui/Icons";
+import {
+  ArrowBackSharpIcon,
+  EllipsisVerticalIcon,
+  TocIcon,
+} from "@/components/ui/Icons";
 import ReaderSettingsSheet from "./ReaderSettingsSheet";
+import { Table2Icon } from "lucide-react";
 
 /**
  * Reader Style Settings Icon (Aa)
@@ -24,8 +29,19 @@ const TextStyleIcon: React.FC<{ size?: number; className?: string }> = ({
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <text x="2" y="17" fontSize="14" fontWeight="bold" fill="currentColor" stroke="none">A</text>
-    <text x="12" y="17" fontSize="10" fill="currentColor" stroke="none">a</text>
+    <text
+      x="2"
+      y="17"
+      fontSize="14"
+      fontWeight="bold"
+      fill="currentColor"
+      stroke="none"
+    >
+      A
+    </text>
+    <text x="12" y="17" fontSize="10" fill="currentColor" stroke="none">
+      a
+    </text>
   </svg>
 );
 
@@ -82,14 +98,16 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({
  */
 interface ReaderToolbarProps {
   title: string;
+  onTocClick?: () => void;
   onMenuClick?: () => void;
 }
 
 /**
  * Reader Toolbar Component - Kindle-style reading toolbar
  */
-export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({ 
+export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
   title,
+  onTocClick,
   onMenuClick,
 }) => {
   const router = useRouter();
@@ -110,7 +128,7 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
           <ToolbarButton onClick={handleBack} title="Go back">
             <ArrowBackSharpIcon size={18} />
           </ToolbarButton>
-          
+
           <span
             className="text-sm font-sans truncate"
             style={{ color: "var(--eink-ink)" }}
@@ -120,12 +138,19 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
           </span>
         </div>
 
-        {/* Trailing: Settings and menu */}
+        {/* Trailing: ToC, Settings and menu */}
         <div className="flex items-center">
-          <ToolbarButton onClick={() => setSettingsOpen(true)} title="Reader settings">
+          <ToolbarButton onClick={onTocClick} title="Table of contents">
+            <Table2Icon size={18} />
+          </ToolbarButton>
+
+          <ToolbarButton
+            onClick={() => setSettingsOpen(true)}
+            title="Reader settings"
+          >
             <TextStyleIcon size={20} />
           </ToolbarButton>
-          
+
           <ToolbarButton onClick={onMenuClick} title="More options">
             <EllipsisVerticalIcon size={18} />
           </ToolbarButton>
@@ -142,4 +167,3 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
 };
 
 export default ReaderToolbar;
-
