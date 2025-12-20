@@ -20,8 +20,7 @@ export const Typography: React.FC<TypographyProps> = ({
       className={`
         font-serif
         text-[var(--eink-ink)]
-        leading-relaxed
-        
+
         [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:mt-6
         [&_h1]:font-sans [&_h1]:tracking-tight
         
@@ -31,12 +30,11 @@ export const Typography: React.FC<TypographyProps> = ({
         
         [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2 [&_h3]:mt-4
         [&_h3]:font-sans
-        
-        [&_p]:mb-4 [&_p]:text-base [&_p]:leading-7
-        
+
+        [&_p]:mb-4
+
         [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-1
         [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1
-        [&_li]:text-base [&_li]:leading-7
         
         [&_blockquote]:border-l-4 [&_blockquote]:border-[var(--eink-border)]
         [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:my-4
