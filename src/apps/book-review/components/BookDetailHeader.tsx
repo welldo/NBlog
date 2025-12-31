@@ -49,10 +49,13 @@ export default function BookDetailHeader({
   const showPlaceholder = !cover || imageError;
 
   return (
-    <div className="border-b pb-6 mb-6" style={{ borderColor: "var(--eink-ink-muted)" }}>
+    <div
+      className="border-b pb-6 mb-6"
+      style={{ borderColor: "var(--eink-ink-muted)" }}
+    >
       <div className="flex gap-6">
         {/* Book Cover */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <div
             className="relative"
             style={{
