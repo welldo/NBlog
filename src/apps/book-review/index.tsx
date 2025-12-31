@@ -3,29 +3,11 @@
 import { useEffect, useRef, ReactNode, useMemo } from "react";
 import { useAtom } from "jotai";
 import { readerSettingsAtom } from "@/system/atoms/readerSettings";
-import ImageBlock from "@/components/ImageBlock";
 import { Typography } from "@/components/ui";
 import GiscusComments from "@/components/GiscusComments";
 import AppToolbar from "@/system/components/AppToolbar";
+import BookDetailHeader from "./components/BookDetailHeader";
 import "katex/dist/katex.min.css";
-
-function formatDate(dateString: string, locale: string): string {
-  const date = new Date(dateString);
-
-  if (locale === "zh") {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year} 年 ${month} 月 ${day} 日`;
-  } else {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    return date.toLocaleDateString("en", options);
-  }
-}
 
 // Font family mapping
 const fontFamilyMap: Record<string, string> = {
@@ -98,22 +80,15 @@ export default function BookReviewApp({
       />
       <div ref={topRef}>
         <div className="overflow-hidden p-0">
-          <div className="mt-1.5 -mx-2.5 [&_img]:object-cover [&_img]:w-full [&_img]:max-h-[40vh]">
-            {typeof bookProps.cover == "string" && (
-              <>
-                <ImageBlock alt="Cover" src={bookProps.cover} />
-                <meta itemProp="thumbnailUrl" content={bookProps.cover} />
-              </>
-            )}
-          </div>
           <div style={{ paddingLeft: readerStyles.paddingLeft, paddingRight: readerStyles.paddingRight }}>
             <Typography itemScope itemType="http://schema.org/Review">
-              <h1 itemProp="name">{bookProps.title}</h1>
-              <div className="text-[var(--eink-ink-muted)] text-sm mb-4">
-                <time itemProp="datePublished" dateTime={bookProps.createAt}>
-                  {formatDate(bookProps.createAt, locale)}
-                </time>
-              </div>
+              <BookDetailHeader
+                title={bookProps.title}
+                cover={bookProps.cover}
+                metadata={bookProps.metadata}
+                createAt={bookProps.createAt}
+                locale={locale}
+              />
 
               <section
                 itemProp="reviewBody"
