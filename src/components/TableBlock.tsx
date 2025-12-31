@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
-import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+"use client";
 
-const TableBlock = (props) => {
+import React from "react";
 
-	console.log("======>", props)
+const TableBlock = (props: React.TableHTMLAttributes<HTMLTableElement>) => {
+	console.log("TableBlock rendered", props);
 
-	return <table>THIS IS TABLE</table>;
+	return (
+		<div className="w-full overflow-x-auto mb-4">
+			<table
+				className="min-w-full border-collapse"
+				style={{ whiteSpace: 'nowrap' }}
+				{...props}
+			>
+				{props.children}
+			</table>
+		</div>
+	);
 };
 
 export default TableBlock;

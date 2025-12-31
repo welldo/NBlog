@@ -10,6 +10,7 @@ import CodeBlock from "@/components/CodeBlock";
 import ImageBlock from "@/components/ImageBlock";
 import HeadingBlock from "@/components/HeadingBlock";
 import FrameBlock from "@/components/FrameBlock";
+import TableBlock from "@/components/TableBlock";
 
 const SITE_ROOT = "https://rene.wang";
 const AUTHOR_NAME = "Rene Wang";
@@ -157,6 +158,7 @@ export default async function ArticlePage({ params }: PageProps) {
     components: {
       code: CodeBlock,
       img: ImageBlock,
+      table: TableBlock,
       h1: (props) => <HeadingBlock level={1} {...props} />,
       h2: (props) => <HeadingBlock level={2} {...props} />,
       h3: (props) => <HeadingBlock level={3} {...props} />,

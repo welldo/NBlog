@@ -28,19 +28,17 @@ const ImageBlock = (props: ArticleUsageProps | NonArticleUsageProps) => {
 		alt = props.alt;
 	}
 
-	const width = 1000; // Example width for maintaining 1:1 aspect ratio
-	const height = 1000; // Example height for maintaining 1:1 aspect ratio
-
 	return (
 		<>
 			<div className="w-full relative mb-2">
 				<Image
 					src={src}
 					alt={alt}
-					layout="responsive"
-					width={width}
-					height={height}
-					objectFit="contain" // Ensures the image fits within the container, maintaining its aspect ratio without cropping.
+					width={0}
+					height={0}
+					sizes="100vw"
+					style={{ width: '100%', height: 'auto' }}
+					className="object-contain"
 				/>
 			</div>
 			{alt && <div className="text-center text-[#666] text-sm">{alt}</div>}
