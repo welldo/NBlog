@@ -6,6 +6,7 @@ import { Typography } from "@/components/ui";
 import { useToolbar } from "@/contexts/toolbar";
 import { useReaderSettings } from "@/contexts/readerSettings";
 import ReaderToolbar from "@/components/ReaderToolbar";
+import GiscusComments from "@/components/GiscusComments";
 import "katex/dist/katex.min.css";
 
 function formatDate(dateString: string, locale: string): string {
@@ -126,8 +127,8 @@ const ArticlePage = ({
               </time>
             </div>
 
-            <section 
-              itemProp="articleBody" 
+            <section
+              itemProp="articleBody"
               style={{
                 fontSize: readerStyles.fontSize,
                 fontFamily: readerStyles.fontFamily,
@@ -137,6 +138,8 @@ const ArticlePage = ({
               {postContent}
             </section>
           </Typography>
+
+          <GiscusComments locale={locale} />
         </div>
       </div>
     </div>
