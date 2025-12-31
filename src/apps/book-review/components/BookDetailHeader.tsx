@@ -50,7 +50,7 @@ export default function BookDetailHeader({
 
   return (
     <div
-      className="border-b pb-6 mb-6"
+      className="border-b pb-12 mb-6"
       style={{ borderColor: "var(--eink-ink-muted)" }}
     >
       <div className="flex gap-6">
@@ -61,7 +61,6 @@ export default function BookDetailHeader({
             style={{
               width: "160px",
               aspectRatio: "2/3",
-              borderColor: "var(--eink-ink-muted)",
               backgroundColor: "var(--eink-paper-secondary)",
             }}
           >
