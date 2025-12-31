@@ -22,30 +22,37 @@ export default function BookCover({ book, locale }: BookCoverProps) {
   return (
     <Link
       href={`/${locale}/review/${slug}`}
-      className="block"
+      className="block w-full"
     >
-      <div
-        className="w-full relative overflow-hidden border"
-        style={{
-          aspectRatio: "2/3",
-          borderColor: "var(--eink-ink-muted)",
-          backgroundColor: "var(--eink-paper-secondary)",
-        }}
-      >
-        {cover && !imageError && (
+      {showPlaceholder ? (
+        <div
+          className="w-full relative overflow-hidden border"
+          style={{
+            aspectRatio: "2/3",
+            borderColor: "var(--eink-ink-muted)",
+            backgroundColor: "var(--eink-paper-secondary)",
+          }}
+        >
+          <UniversalBookCover title={title} author={author} size="small" />
+        </div>
+      ) : (
+        <div
+          className="w-full relative border"
+          style={{
+            borderColor: "var(--eink-ink-muted)",
+          }}
+        >
           <Image
-            src={cover}
+            src={cover!}
             alt={title}
-            fill
-            className="object-cover"
+            width={300}
+            height={450}
+            className="w-full h-auto"
             sizes="(max-width: 768px) 50vw, 25vw"
             onError={() => setImageError(true)}
           />
-        )}
-        {showPlaceholder && (
-          <UniversalBookCover title={title} author={author} size="small" />
-        )}
-      </div>
+        </div>
+      )}
     </Link>
   );
 }

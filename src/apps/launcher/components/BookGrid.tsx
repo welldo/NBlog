@@ -27,7 +27,8 @@ export default function BookGrid({ books, locale }: BookGridProps) {
       className="grid gap-6"
       style={{
         gridTemplateColumns: "repeat(4, 1fr)",
-        gridAutoRows: "max-content",
+        gridAutoRows: "auto",
+        alignItems: "end",
       }}
     >
       {books.map((book) => (
