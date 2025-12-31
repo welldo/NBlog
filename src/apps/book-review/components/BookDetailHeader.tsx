@@ -54,7 +54,7 @@ export default function BookDetailHeader({
         {/* Book Cover */}
         <div className="flex-shrink-0">
           <div
-            className="relative border"
+            className="relative"
             style={{
               width: "160px",
               aspectRatio: "2/3",
