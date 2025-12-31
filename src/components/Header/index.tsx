@@ -43,15 +43,16 @@ const Header: React.FC<HeaderProps> = ({ menuItems = [] }) => {
   };
 
   // Kindle-style invert on tap
-  const buttonStyles = (pressed: boolean) => pressed
-    ? {
-        color: "var(--eink-paper)",
-        backgroundColor: "var(--eink-ink)",
-      }
-    : {
-        color: "var(--eink-ink)",
-        backgroundColor: "transparent",
-      };
+  const buttonStyles = (pressed: boolean) =>
+    pressed
+      ? {
+          color: "var(--eink-paper)",
+          backgroundColor: "var(--eink-ink)",
+        }
+      : {
+          color: "var(--eink-ink)",
+          backgroundColor: "transparent",
+        };
 
   var pageMenuItems: any[] = [];
 
@@ -83,10 +84,6 @@ const Header: React.FC<HeaderProps> = ({ menuItems = [] }) => {
           {
             textPrimary: t("nav.homePage"),
             onClick: () => router.push("/"),
-          },
-          {
-            textPrimary: t("nav.back"),
-            onClick: () => router.back(),
           },
           {
             textPrimary: t("nav.settings"),
